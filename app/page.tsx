@@ -1,125 +1,87 @@
 "use client"
+
 import { Producto } from "@prisma/client";
 import Image from "next/image";
-import { FaShoppingCart, FaUserCircle } from "react-icons/fa";
+import Link from "next/link";
 import { useState, useEffect } from "react";
-import OrderSidebar from "@/components/order/OrderSidebar";
+import { FaShoppingCart, FaUserCircle, FaBars } from "react-icons/fa";
 
-type ProductCardPropss = {
-  producto: Producto;
-};
+export default function Home({ producto }: { producto?: Producto }) {
+  const [menuOpen, setMenuOpen] = useState(false);
 
-const Banner = () => {
-  const [message, setMessage] = useState('Bienvenidos a nuestra Joyería');
-
-  useEffect(() => {
-    const messages = [
-      'Bienvenidos a nuestra Joyería',
-      'Explora nuestras colecciones exclusivas',
-      '¡Descubre lo mejor en joyas!',
-    ];
-    let index = 0;
-    const interval = setInterval(() => {
-      setMessage(messages[index]);
-      index = (index + 1) % messages.length;
-    }, 3000); // Cambia cada 3 segundos
-
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
-    <section className="relative w-full h-[120px] bg-cover bg-center">
-      <div className="absolute inset-0 bg-black opacity-50"></div>
-      <div className="absolute inset-0 flex justify-center items-center text-white">
-        <h1 className="text-4xl font-bold">{message}</h1>
-      </div>
-    </section>
-  );
-};
-
-export default function Home({ producto }: ProductCardPropss) {
   return (
     <div className="bg-white text-gray-800">
-      {/* Header */}
-      <header className="py-4 px-8 bg-indigo-900 text-white flex justify-between items-center">
-        <div className="text-xl font-bold">
-          <h1>Zhoe Parodi</h1>
-        </div>
-        {/* Iconos de carrito y cuenta */}
-        <div className="flex space-x-6">
-          <button className="text-white hover:text-amber-400">
-            <FaShoppingCart size={24} />
-          </button>
-          <button className="text-white hover:text-amber-400">
-            <FaUserCircle size={24} />
-          </button>
-        </div>
-      </header>
+      {/* Barra roja superior */}
+      <div className="bg-red-600 text-white text-sm text-center py-2">
+        Envío nacional GRATIS en compras mayores a $1,199 MXN
+      </div>
 
-      {/* Hero Section con Banner Dinámico */}
-      <Banner />
+      <header className="bg-white px-6 py-4 shadow-md flex items-center justify-between">
+  {/* Menú móvil (solo visible en pantallas pequeñas) */}
+  <div className="md:hidden">
+    <button onClick={() => setMenuOpen(!menuOpen)} className="text-gray-700">
+      <FaBars size={22} />
+    </button>
+  </div>
 
-      {/* Productos Destacados */}
-      <section className="py-10 px-8">
-        <h2 className="text-3xl font-bold text-center mb-8 text-indigo-900">Lo más vendido</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-          <div className="bg-white shadow-md rounded-lg overflow-hidden">
-            <div className="p-4">
-              <h3 className="text-xl font-semibold text-indigo-900">Collar</h3>
-              <Image
-                width={350}
-                height={400}
-                src="/productos/collar_05.jpeg"
-                alt="Imagen joyas"
-                quality={90}
-              />
-              <p className="text-lg text-gray-600">$500</p>
-            </div>
-          </div>
+  {/* Logo centrado siempre */}
+  <div className="flex-1 flex justify-center md:justify-center">
+    <Image
+      src="/zhoeparodi-03_2.jpg"
+      alt="Zhoe Parodi"
+      width={140}
+      height={60}
+      priority
+    />
+  </div>
 
-          <div className="bg-white shadow-md rounded-lg overflow-hidden">
-            <div className="p-4">
-              <h3 className="text-xl font-semibold text-indigo-900">Anillo</h3>
-              <Image
-                width={350}
-                height={400}
-                src="/productos/anillo_03.jpeg"
-                alt="Imagen joyas"
-                quality={90}
-              />
-              <p className="text-lg text-gray-600">$800</p>
-            </div>
-          </div>
+  {/* Íconos lado derecho */}
+  <div className="flex items-center space-x-4 md:ml-auto">
+    <FaShoppingCart size={22} className="text-gray-700 hover:text-amber-500" />
+    <FaUserCircle size={22} className="text-gray-700 hover:text-amber-500" />
+  </div>
+</header>
 
-          <div className="bg-white shadow-md rounded-lg overflow-hidden">
-            <div className="p-4">
-              <h3 className="text-xl font-semibold text-indigo-900">Brazalete</h3>
-              <Image
-                width={350}
-                height={400}
-                src="/productos/brazalete_02.jpeg"
-                alt="Imagen joyas"
-                quality={90}
-              />
-              <p className="text-lg text-gray-600">$1200</p>
-            </div>
-          </div>
-        </div>
+
+      {/* Navegación horizontal en pantallas grandes */}
+      <nav className="hidden md:flex justify-center space-x-10 py-4 text-sm font-semibold border-b bg-white sticky top-0 z-50 shadow-sm">
+        <Link href="#" className="hover:text-amber-500">Colecciones</Link>
+        <Link href="#" className="hover:text-amber-500">Categorías</Link>
+        <Link href="#" className="hover:text-amber-500">Nuevos lanzamientos</Link>
+        <Link href="#" className="hover:text-amber-500">Contacto</Link>
+      </nav>
+
+      {/* Navegación desplegable en móvil */}
+      {menuOpen && (
+        <nav className="md:hidden bg-white border-b text-sm font-semibold px-6 py-4 space-y-2">
+          <Link href="#" className="block hover:text-amber-500">Colecciones</Link>
+          <Link href="#" className="block hover:text-amber-500">Categorías</Link>
+          <Link href="#" className="block hover:text-amber-500">Nuevos lanzamientos</Link>
+          <Link href="#" className="block hover:text-amber-500">Contacto</Link>
+        </nav>
+      )}
+
+      {/* Banner de imagen tipo hero */}
+      <section className="relative w-full h-[380px]">
+        <Image
+          src="/IMG_0933.JPG"
+          alt="Zhoe Parodi promocion"
+          fill
+          className="object-cover"
+          priority
+        />
       </section>
-      
-      <OrderSidebar/>
+
+      {/* Texto promocional */}
+      <section className="py-6 text-center">
+        <h2 className="text-4xl font-bold text-gray-800">HOT SALE 25% OFF</h2>
+        <p className="text-lg text-gray-600 mt-2">Aprovecha nuestras promociones</p>
+      </section>
 
       {/* Footer */}
       <footer className="bg-indigo-900 text-white py-6">
-        <div className="text-center ">
+        <div className="text-center">
           <p>&copy; 2025 Zhoe Parodi. Todos los derechos reservados.</p>
-          <div className="mt-4 space-x-4">
-            <a className="hover:text-amber-400">Facebook</a>
-            <a className="hover:text-amber-400">Instagram</a>
-            <a className="hover:text-amber-400">Productos</a>
-            <a className="hover:text-amber-400">Nosotros</a>
-            <a className="hover:text-amber-400">Contacto</a>
-          </div>
         </div>
       </footer>
     </div>
