@@ -8,37 +8,52 @@ datasource db {
 }
 
 model Categoria {
-  id    Int    @id   @default(autoincrement())
-  name  String
-  slug  String 
+  id        Int        @id @default(autoincrement())
+  name      String
+  slug      String
   productos Producto[]
 }
 
 model Producto {
-  id               Int        @id @default(autoincrement())
-  name             String
-  precio           Float
-  foto             String
-  categoriaId      Int
-  categoria Categoria @relation(fields: [categoriaId], references: [id])
-  orderItems OrderProductos[]
+  id          Int              @id @default(autoincrement())
+  name        String
+  precio      Float
+  foto        String
+  categoriaId Int
+  orderItems  OrderProductos[]
+  categoria   Categoria        @relation(fields: [categoriaId], references: [id])
 }
 
 model Order {
-  id            Int         @id @default(autoincrement())
-  name          String
-  total         Float
-  date          DateTime    @default(now())
-  status        Boolean     @default(false)
-  orderReadyAt  DateTime?
+  id             Int              @id @default(autoincrement())
+  name           String
+  total          Float
+  date           DateTime         @default(now())
+  status         Boolean          @default(false)
+  orderReadyAt   DateTime?
   orderProductos OrderProductos[]
 }
 
 model OrderProductos {
-  id            Int           @id @default(autoincrement())
-  orderId       Int
-  order Order @relation(fields: [orderId], references: [id])
-  productoId    Int
-  producto Producto @relation(fields: [productoId], references: [id])
-  cantidad      Int
+  id         Int      @id @default(autoincrement())
+  orderId    Int
+  productoId Int
+  cantidad   Int
+  order      Order    @relation(fields: [orderId], references: [id])
+  producto   Producto @relation(fields: [productoId], references: [id])
+}
+
+model Usuario {
+  id                 Int      @id @default(autoincrement())
+  nombreUsuario      String   @unique
+  nombre             String
+  edad               Int
+  email              String   @unique
+  contrasena         String
+  estadoUsuarios     Boolean  @default(true)
+  permisos           String?
+  codigoVerificacion String?
+  correoValidado     Boolean  @default(false)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
 }
