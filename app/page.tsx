@@ -1,10 +1,10 @@
 "use client"
-
+import OrderSidebar from "@/components/order/OrderSidebar";
+import Header from "@/components/ui/Header";
 import { Producto } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect } from "react";
-import { FaShoppingCart, FaUserCircle, FaBars } from "react-icons/fa";
+import { useState } from "react";
 
 export default function Home({ producto }: { producto?: Producto }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -16,32 +16,7 @@ export default function Home({ producto }: { producto?: Producto }) {
         Envío nacional GRATIS en compras mayores a $1,199 MXN
       </div>
 
-      <header className="bg-white px-6 py-4 shadow-md flex items-center justify-between">
-  {/* Menú móvil (solo visible en pantallas pequeñas) */}
-  <div className="md:hidden">
-    <button onClick={() => setMenuOpen(!menuOpen)} className="text-gray-700">
-      <FaBars size={22} />
-    </button>
-  </div>
-
-  {/* Logo centrado siempre */}
-  <div className="flex-1 flex justify-center md:justify-center">
-    <Image
-      src="/zhoeparodi-03_2.jpg"
-      alt="Zhoe Parodi"
-      width={140}
-      height={60}
-      priority
-    />
-  </div>
-
-  {/* Íconos lado derecho */}
-  <div className="flex items-center space-x-4 md:ml-auto">
-    <FaShoppingCart size={22} className="text-gray-700 hover:text-amber-500" />
-    <FaUserCircle size={22} className="text-gray-700 hover:text-amber-500" />
-  </div>
-</header>
-
+      <Header />
 
       {/* Navegación horizontal en pantallas grandes */}
       <nav className="hidden md:flex justify-center space-x-10 py-4 text-sm font-semibold border-b bg-white sticky top-0 z-50 shadow-sm">
@@ -76,6 +51,11 @@ export default function Home({ producto }: { producto?: Producto }) {
       <section className="py-6 text-center">
         <h2 className="text-4xl font-bold text-gray-800">HOT SALE 25% OFF</h2>
         <p className="text-lg text-gray-600 mt-2">Aprovecha nuestras promociones</p>
+      </section>
+
+      <section className="py-6 text-center">
+        <OrderSidebar />
+        <h2 className="text-4xl font-bold text-gray-800">PRODUCTOS PRINCIPALES</h2>
       </section>
 
       {/* Footer */}
