@@ -5,60 +5,66 @@ import { useStore } from "@/src/store"
 import { useMemo } from "react"
 
 type ProductDetailsProps = {
-    item: OrderItem
+  item: OrderItem
 }
 
 export default function ProductDetails({ item }: ProductDetailsProps) {
+  const increaseQuantity = useStore((state) => state.increaseQuantity)
+  const decreaseQuantity = useStore((state) => state.decreaseQuantity)
+  const removeItem = useStore((state) => state.removeItem)
 
-    const increaseQuantity = useStore ((state) => state.increaseQuantity)
-    const decreaseQuantity = useStore ((state) => state.decreaseQuantity)
-    const removeItem = useStore ((state) => state.removeItem)
-    const disableDecreaseButton = useMemo(() => item.quantity === 1, [item]) 
+  const disableDecreaseButton = useMemo(() => item.quantity === 1, [item])
 
-    return (
-        <div className="shadow space-y-1 p-4 bg-white  border-t border-gray-200 ">
-            <div className="space-y-4">
-                <div className="flex justify-between items-start">
-                    <p className="text-xl font-bold">{item.name} </p>
+  return (
+    <div className="border rounded-md p-5 bg-white shadow-sm space-y-4">
+      {/* Título y botón eliminar */}
+      <div className="flex justify-between items-start">
+        <h3 className="text-base md:text-lg font-semibold text-gray-800 uppercase tracking-wide leading-snug">
+          {item.name}
+        </h3>
+        <button
+          type="button"
+          onClick={() => removeItem(item.id)}
+          className="text-red-600 hover:text-red-800 transition"
+        >
+          <XCircleIcon className="h-6 w-6" />
+        </button>
+      </div>
 
-                    <button
-                        type="button"
-                        onClick={() => removeItem(item.id)}
-                    >
-                        <XCircleIcon className="text-red-600 h-8 w-8" />
-                    </button>
-                </div>
-                <p className="text-2xl text-amber-500 font-black">
-                    {formatCurrency(item.precio)}
-                </p>
-                <div className="flex gap-5 px-10 py-2 bg-gray-100 w-fit rounded-lg">
-                    <button
-                        type="button"
-                        onClick={() => decreaseQuantity(item.id)}
-                        disabled={disableDecreaseButton}
-                        className="disabled:opacity-20"
-                    >
-                        <MinusIcon className="h-6 w-6" />
-                    </button>
+      {/* Precio individual */}
+      <p className="text-xl font-bold text-amber-500">
+        {formatCurrency(item.precio)}
+      </p>
 
-                    <p className="text-lg font-black ">
-                        {item.quantity}
-                    </p>
+      {/* Controles de cantidad */}
+      <div className="flex items-center gap-5 px-4 py-2 bg-gray-100 rounded-md w-fit">
+        <button
+          type="button"
+          onClick={() => decreaseQuantity(item.id)}
+          disabled={disableDecreaseButton}
+          className="disabled:opacity-30 hover:text-red-500"
+        >
+          <MinusIcon className="h-5 w-5" />
+        </button>
 
-                    <button
-                        type="button"
-                        onClick={() => increaseQuantity(item.id)}
-                    >
-                        <PlusIcon className="h-6 w-6" />
-                    </button>
-                </div>
-                <p className="text-xl font-black text-gray-700">
-                    Subtotal: {''}
-                    <span className="font-normal">
-                        {formatCurrency(item.subtotal)}
-                    </span>
-                </p>
-            </div>
-        </div>
-    )
+        <span className="text-lg font-semibold text-gray-700">{item.quantity}</span>
+
+        <button
+          type="button"
+          onClick={() => increaseQuantity(item.id)}
+          className="hover:text-green-600"
+        >
+          <PlusIcon className="h-5 w-5" />
+        </button>
+      </div>
+
+      {/* Subtotal */}
+      <p className="text-sm text-gray-600">
+        Subtotal:{" "}
+        <span className="font-semibold text-gray-800">
+          {formatCurrency(item.subtotal)}
+        </span>
+      </p>
+    </div>
+  )
 }
