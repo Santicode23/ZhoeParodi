@@ -17,7 +17,6 @@ export default async function OrderSidebar() {
                     </div>
                 ))}
             </div>
-
         </section>
     )
 }
