@@ -1,6 +1,7 @@
 import { formatCurrency, getImagePath } from "@/src/lib/utils"
 import { Producto } from "@prisma/client"
 import Image from "next/image"
+import Link from "next/link"
 import AddProductButton from "./AddProductButton"
 
 type ProductCardProps = {
@@ -20,17 +21,19 @@ export default function ProductCard({ producto }: ProductCardProps) {
         -${(precioOriginal - producto.precio).toFixed(2)}
       </span>
 
-      {/* Imagen */}
-      <div className="w-full aspect-[3/4] bg-gray-100">
-        <Image
-          width={400}
-          height={400}
-          src={imagePath}
-          alt={`Imagen joyas ${producto.name}`}
-          quality={90}
-          className="object-cover w-full h-full"
-        />
-      </div>
+      {/* Imagen cliqueable */}
+      <Link href={`/order/${producto.categoriaId}/details/${producto.id}`}>
+        <div className="w-full aspect-[3/4] bg-gray-100">
+          <Image
+            width={400}
+            height={400}
+            src={imagePath}
+            alt={`Imagen joyas ${producto.name}`}
+            quality={90}
+            className="object-cover w-full h-full"
+          />
+        </div>
+      </Link>
 
       {/* Info producto */}
       <div className="p-5 space-y-3">

@@ -43,6 +43,7 @@ export const useStore = create<Store>((set, get) => ({
           ...data,
           quantity: 1,
           subtotal: 1 * producto.precio,
+          foto
         },
       ]
     }

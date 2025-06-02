@@ -1,4 +1,5 @@
 "use client"
+import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
 
 export default function GoBackButton() {
@@ -6,7 +7,7 @@ export default function GoBackButton() {
     return (
         <button
             onClick={() => router.back()}
-            className="bg-amber-400 w-full lg:w-auto text-xl px-10 py-3 text-center font-bold cursor-pointer"
-        >volver</button>
+            className="inline-flex items-center gap-1 text-sm text-gray-600 hover:text-black border border-gray-300 px-3 py-1.5 rounded-md hover:bg-gray-100 transition-colors cursor-pointer"
+        > <ArrowLeftIcon className="w-4 h-4" />volver</button>
     )
 }
