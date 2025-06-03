@@ -70,7 +70,9 @@ export default function Header() {
               </span>
             )}
           </button>
-          <FaUserCircle size={22} className="text-gray-700 hover:text-amber-500" />
+          <Link href="/login">
+            <FaUserCircle size={22} className="text-gray-700 hover:text-amber-500" />
+          </Link>
         </div>
       </header>
 
