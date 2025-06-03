@@ -8,7 +8,7 @@ export const categorias = [
         name: "Brazalete"
       },
       {
-        slug: "anillo",
-        name: "Anillo"
+        slug: "arete",
+        name: "Arete"
       },
 ]
