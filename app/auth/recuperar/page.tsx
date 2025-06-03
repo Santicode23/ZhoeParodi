@@ -39,7 +39,7 @@ export default function RecuperarPage() {
           <button type="submit" className="w-full bg-black text-white py-2 rounded">
             Enviar código
           </button>
-          <a href="/login" className="text-blue-600 hover:underline text-sm">
+          <a href="/auth/login" className="text-blue-600 hover:underline text-sm">
           Cancelar
           </a>
         </form>

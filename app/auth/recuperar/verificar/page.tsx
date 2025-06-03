@@ -47,7 +47,7 @@ export default function CambiarContrasenaPage() {
     <p className="mt-4 text-sm">{mensaje}</p>
     {mensaje.includes("éxito") && (
       <div className="mt-3">
-        <a href="/login" className="text-blue-600 hover:underline text-sm">
+        <a href="/auth/login" className="text-blue-600 hover:underline text-sm">
           Iniciar sesión
         </a>
       </div>
