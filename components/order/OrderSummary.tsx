@@ -26,7 +26,7 @@ export default function OrderSummary() {
                         <span className="font-bold">{formatCurrency(total)}</span>
                     </p>
                         <Link
-                            href="/checkout"
+                            href="/order/checkout"
                             className="block text-center bg-amber-500 hover:bg-amber-600 text-white py-2 px-4 rounded transition mt-4"
                         >
                             Finalizar compra

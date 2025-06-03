@@ -1,4 +1,6 @@
 import OrderSidebar from "@/components/order/OrderSidebar";
+import Footer from "@/components/ui/Footer";
+import Header from "@/components/ui/Header";
 import { Producto } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
@@ -6,6 +8,7 @@ import Link from "next/link";
 export default function Home({ producto }: { producto?: Producto }) {
   return (
     <div className="bg-white text-gray-800">
+      <Header />
       <section className="relative w-full h-[380px]">
         <Image
           src="/IMG_0933.JPG"
@@ -24,7 +27,8 @@ export default function Home({ producto }: { producto?: Producto }) {
       <section className="py-6 text-center">
         <OrderSidebar />
         <h2 className="text-4xl font-bold text-gray-800">PRODUCTOS PRINCIPALES</h2>
-      </section>   
+      </section>
+      <Footer />   
     </div>
   )
 }
